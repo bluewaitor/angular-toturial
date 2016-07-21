@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp">
+    <h1 class="text-center text-primary">Angular 过滤器</h1>
+    <div ng-controller="myCtrl" class="container">
+        <!--可以传两个参数, 第一个参数是符号, 第二个参数是保留几位小数-->
+        <h1 class="page-header">1.currency: {{1234.56|currency}}</h1>
+        <!---->
+        <h1 class="page-header">2.date: {{1398323623006 |date:'yyyy-MM-dd HH:mm:ss'}}</h1>
+
+
+        <h1 class="page-header">3.filter: </h1>
+        <input type="text" ng-model="searchText" placeholder="请输入动物名称" class="form-control">
+        <ul class="list-group">
+            <li ng-repeat="animal in animals | filter:searchText" class="list-group-item">
+                {{animal}}
+            </li>
+        </ul>
+        <!--可以传入一个参数, 就是格式化json的空格, 默认是2-->
+        <h1 class="page-header">4.json: <pre>{{ {'name': 'value'} | json: 4}}</pre></h1>
+        <h1 class="page-header form-inline">
+            5.limitTo:
+            <input type="text" placeholder="请输入长度" ng-model="limitNumber" class="form-control">
+            <input type="text" placeholder="请输入开始截取的位置" ng-model="limitStart" class="form-control">
+        </h1>
+        <h1 class="page-header">{{'我是一串很长的字符串啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'|limitTo: limitNumber: limitStart}}</h1>
+        <h1 class="page-header">6.lowercase: {{lastName|lowercase}}</h1>
+        <!--保留的小数, 默认是3-->
+        <h1 class="page-header">7.number: {{1234.56789|number:1}}</h1>
+        <h1 class="page-header">8.orderBy:</h1>
+        <ul class="list-group">
+            <li ng-repeat="animal in animals | orderBy: animal" class="list-group-item list-group-item-info">
+                {{animal}}
+            </li>
+        </ul>
+        <h1 class="page-header">9.uppercase: {{firstName|uppercase}}</h1>
+
+
+        <div class="jumbotron">
+            <h2>自定义过滤器</h2>
+            <div ng-init="reverseStr='这是初始化的字符串'"></div>
+            <input type="text" class="form-control" placeholder="请随便输入" ng-model="reverseStr">
+
+            <p>我反过来了哦: {{reverseStr|reverse}}</p>
+        </div>
+
+
+    </div>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        (function () {
+            //创建一个模块
+            angular.module("myApp", []);
+            var myApp = angular.module("myApp");
+            myApp.controller("myCtrl", function ($scope) {
+                $scope.firstName = 'hello';
+                $scope.lastName = 'KITTY';
+                $scope.animals = ['cat', 'dog', 'mouse', 'chicken', 'snake'];
+            });
+
+            myApp.filter("reverse", function () {
+                return function(input){
+                    return input.split('').reverse().join('');
+                }
+            })
+        })();
+    </script>
+</body>
+</html>

@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Angular</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
 </head>
 <body ng-app="myApp">
+    <h1 class="text-center text-primary">Angular 模块</h1>
+    <div ng-controller="myCtrl" class="container">
+        <p>{{name}}</p>
+    </div>
 
-<div ng-controller="myCtrl">
-    <p>{{name}}</p>
-</div>
-
-<script src="bower_components/angular/angular.min.js"></script>
-<script>
-    (function () {
-        //创建一个模块
-        angular.module("myApp", []);
-        var myApp = angular.module("myApp");
-        myApp.controller("myCtrl", function ($scope) {
-            $scope.name = 'hello';
-        })
-    })();
-</script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        (function () {
+            //创建一个模块
+            angular.module("myApp", []);
+            //获取一个模块
+            var myApp = angular.module("myApp");
+            myApp.controller("myCtrl", function ($scope) {
+                $scope.name = 'hello';
+            });
+        })();
+    </script>
 </body>
 </html>

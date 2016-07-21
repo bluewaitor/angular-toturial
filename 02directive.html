@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Angular</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
 </head>
 <body ng-app="myApp">
+    <h1 class="text-center text-primary">Angular 指令</h1>
+    <div class="container">
+        <div ng-init="name='hello'"></div>
+        <input type="text" ng-model="name" class="form-control">
+        <h1>{{name}}</h1>
+        <h1 ng-bind="name"></h1>
+    </div>
 
-<div>
-    <div ng-init="name='hello'"></div>
-    <input type="text" ng-model="name">
-    <p>{{name}}</p>
-    <p ng-bind="name"></p>
-</div>
-
-<script src="bower_components/angular/angular.min.js"></script>
-<script>
-    (function () {
-        angular.module("myApp", []);
-    })();
-</script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        (function () {
+            angular.module("myApp", []);
+        })();
+    </script>
 </body>
 </html>

@@ -7,6 +7,7 @@ angular是一个javascript框架, 可以用来构建SPA(single page applications
 
 ## 1. 表达式
 
+表达式其实就是我们的各种运算, 加减乘除, 三元运算, 字符串相加等等
 
 ## 2. 指令
 
@@ -18,6 +19,8 @@ angular是一个javascript框架, 可以用来构建SPA(single page applications
     `ng-model 指令把元素值（比如输入域的值）绑定到应用程序。`
 - ng-bind 指令
     `ng-bind 指令绑定一个变量`
+
+更多指令 [点我](https://docs.angularjs.org/api/ng/directive)
     
 ## 3. 模块
 
@@ -31,4 +34,23 @@ angular是一个javascript框架, 可以用来构建SPA(single page applications
 
 ## 5. 服务
 
-## 6. 过滤器 
+1. value `可以被修改`
+2. constant `常量,不能被修改,可以在config的时候被注入`
+3. factory `返回一个对象, 被注入服务的就是这个对象`
+4. service `需要一个构造函数, 实际上factory和service是差不多的`
+5. provider `返回一个对象, 对象必须要有一个$get方法, $get必须返回一个对象,这个对象就是被注入到服务的对象`
+
+angular 内置服务
+- $http
+- $interval `相当于window.setInterval $interval.cancel 相当于clearInterval`
+- $timeout `相当于window.setTimeout`
+
+## 6. 过滤器
+
+angular的过滤器一般用来转换数据.
+内置的过滤器有`currency,date,filter,json,limitTo,lowercase,number,orderBy,uppercase`
+当然,我们也可以自定义过滤器
+
+
+
+[api文档地址](https://docs.angularjs.org/api)

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+<body ng-app="myApp">
+    <h1 class="text-center text-primary">Angular 服务</h1>
+    <div ng-controller="myCtrl" class="container">
+        <h1 class="page-header">myApp.value: {{testValue}}</h1>
+
+        <h1 class="page-header">myApp.constant: {{testConstant}}</h1>
+        <h1 class="page-header">myApp.factory: <pre>name: {{testFactory.name}} | age: {{testFactory.age}}</pre></h1>
+        <h1 class="page-header">myApp.service: <pre>hero: {{testService.hero}}</pre></h1>
+        <h1 class="page-header">myApp.provider: <pre>singer: {{testProvider.singer}}</pre></h1>
+
+        <h1 ng-show="showText" class="page-header">2秒后我就出来啦</h1>
+        <h1 class="page-header">$interval: {{money}}</h1>
+
+        <button class="btn btn-primary" ng-click="getData()">通过$http获取数据</button>
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <td>歌名</td>
+                    <td>歌手</td>
+                    <td>专辑</td>
+                </tr>
+            </thead>
+            <tr ng-repeat="song in songs">
+                <td>{{song.name}}</td>
+                <td>{{song.singer}}</td>
+                <td>{{song.album}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        (function () {
+            //创建一个模块
+            var myApp = angular.module("myApp", []);
+
+            myApp.config(function ($provide) {
+                $provide.decorator('testValue', function($delegate) {
+                    $delegate.username = 'changed';
+                    $delegate.age = '15';
+                    return $delegate;
+                });
+            });
+            myApp.controller("myCtrl", function ($scope, testValue, testConstant, testFactory, testService, testP, $timeout, $interval, $http) {
+                $scope.testValue = testValue;
+                $scope.changeValue = function () {
+                    testValue.username = '11';
+                };
+
+                $scope.testConstant = testConstant.maxAge;
+
+                $scope.testFactory = testFactory;
+
+                $scope.testService = testService;
+
+                $scope.testProvider = testP;
+                $scope.showText = false;
+                $timeout(function () {
+                    $scope.showText = true;
+                }, 2000);
+
+                $scope.money = 0;
+                var interval = $interval(function () {
+                    $scope.money ++;
+                    if($scope.money > 10){
+                        $interval.cancel(interval);
+                    }
+                }, 1000);
+
+                $scope.songs = {};
+                $scope.getData = function () {
+                    $http.get("songs.json").then(function (res) {
+                        $scope.songs = res.data;
+                    });
+                };
+
+            });
+
+            myApp.value("testValue", {
+                username: 'west life'
+            });
+
+            myApp.constant("testConstant", {
+                maxAge: 100
+            });
+
+            function Person() {
+                this.name = 'superman';
+                this.age = 30;
+            }
+
+            myApp.factory("testFactory", function () {
+                return new Person();
+            });
+
+            myApp.service("testService", function () {
+                this.hero = 'spiderman';
+            });
+
+            myApp.provider("testP", function () {
+                //返回一个对象
+                return {
+                    //对象里面包含$get方法
+                    $get: function () {
+                        //$get里面必须返回一个对象
+                        return {
+                            singer: 'jason'
+                        }
+                    }
+                }
+            })
+        })();
+    </script>
+</body>
+</html>
