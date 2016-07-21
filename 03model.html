@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body ng-app="myApp">
+
+<div ng-controller="myCtrl">
+    <p>{{name}}</p>
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    (function () {
+        //创建一个模块
+        angular.module("myApp", []);
+        var myApp = angular.module("myApp");
+        myApp.controller("myCtrl", function ($scope) {
+            $scope.name = 'hello';
+        })
+    })();
+</script>
+</body>
+</html>

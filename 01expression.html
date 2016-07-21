@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <p>使用数字: {{1+1}}</p>
+    <p>使用字符串: {{"hello" + " world"}}</p>
+    <p>使用数组: {{arr[0]}}</p>
+    <p>使用对象: {{obj.hello}}</p>
+    <p>使用三元运算符: {{5 > 10 ? obj.hello : arr[0]}}</p>
+<div>
+
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    (function () {
+        var myApp = angular.module("myApp", []);
+        myApp.controller("myCtrl", function ($scope) {
+            var vm = $scope;
+            vm.arr = [1,2,3,4,5];
+            vm.obj = {
+                hello: 'world'
+            }
+        });
+    })();
+</script>
+</body>
+</html>

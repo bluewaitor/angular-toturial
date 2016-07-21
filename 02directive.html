@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body ng-app="myApp">
+
+<div>
+    <div ng-init="name='hello'"></div>
+    <input type="text" ng-model="name">
+    <p>{{name}}</p>
+    <p ng-bind="name"></p>
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    (function () {
+        angular.module("myApp", []);
+    })();
+</script>
+</body>
+</html>
