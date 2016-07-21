@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+<body ng-app="myApp">
+
+<div ng-controller="myCtrl">
+    <p>{{name}}</p>
+    <input type="text" placeholder="请输入新的名字" ng-model="newName">
+    <button ng-click="changeName(newName)">改变名字</button>
+</div>
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    (function () {
+        //创建一个模块
+        angular.module("myApp", []);
+        var myApp = angular.module("myApp");
+        myApp.controller("myCtrl", function ($scope) {
+            //控制器变量
+            $scope.name = 'hello';
+            //控制器方法
+            $scope.changeName = function (name) {
+                $scope.name = name;
+                $scope.newName = '';
+            }
+        })
+    })();
+</script>
+</body>
+</html>
