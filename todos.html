@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp">
+
+    <div class="jumbotron container" ng-controller="todoCtrl">
+        <h1>Todos</h1>
+        <form ng-submit="addTodo(todoStr)">
+            <input type="text" placeholder="添加任务" class="form-control" ng-model="todoStr">
+        </form>
+
+        <table class="table table-bordered table-responsive container">
+            <thead>
+            <tr>
+                <td>序号</td>
+                <td>任务</td>
+                <td>创建时间</td>
+                <td>是否完成</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tr ng-repeat="todo in todos">
+                <td>{{$index+1}}</td>
+                <td>{{todo.name}}</td>
+                <td>{{todo.created|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td><i class="glyphicon" ng-class="{'glyphicon-ok': todo.isDone, 'glyphicon-remove': !todo.isDone}"></i></td>
+                <td><input type="checkbox" ng-click="toggleTodo(todo)" ng-checked="todo.isDone"></td>
+            </tr>
+        </table>
+    </div>
+
+
+
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    (function () {
+        var myApp = angular.module("myApp", []);
+        myApp.controller('todoCtrl', function ($scope) {
+
+            var vm = $scope;
+            vm.todos = [];
+
+            vm.addTodo = function (todo) {
+                vm.todos.push({
+                    name: todo,
+                    created: new Date().getTime(),
+                    isDone: false
+                });
+                vm.todoStr = '';
+            };
+
+            vm.toggleTodo = function (todo) {
+                todo.isDone = !todo.isDone;
+            }
+
+        });
+    })();
+</script>
+</body>
+</html>
